@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
@@ -100,12 +102,16 @@ public class MatchesActivity extends AppCompatActivity {
         });
     }
 
-    private void getDataSetMatchId()    {
-        Query sortedMathcesByLastTimeStamp = FirebaseAuth.getInstance().getReference()
-                .child("Users").child(currentUserId).child("connections").child("matches")
+    private void getUserMatchId()    {
+        Query sortedMatchesByLastTimeStamp = FirebaseDatabase.getInstance().getReference()
+                .child("Users")
+                .child(currentUserId)
+                .child("connections")
+                .child("matches")
                 .orderByChild("lastTimeStamp");
 
-        sortedMathcesByLastTimeStamp.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        sortedMatchesByLastTimeStamp.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists())  {
@@ -123,7 +129,7 @@ public class MatchesActivity extends AppCompatActivity {
     }
 
     private void FetchMatchInformation(String key, final String chatid) {
-        DatabaseReference userDb = FirebaseAuth.getInstance().getReference.child("Users").child(key);
+        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
         getLastMessageInfo(userDb);
 
         userDb.addValueEventListener(new ValueEventListener() {

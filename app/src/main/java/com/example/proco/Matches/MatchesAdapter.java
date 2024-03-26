@@ -32,8 +32,6 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders> {
         layoutView.setLayoutParams(lp);
         MatchesViewHolders rcv= new MatchesViewHolders(layoutView);
         return rcv;
-
-
     }
 
     @Override
@@ -49,14 +47,12 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders> {
         String lastSeen="";
         lastSeen=matchesList.get(position).getLastSeen();
 
-
         if(lastSeen.equals("true"))
             holder.mNotificationDot.setVisibility((View.VISIBLE));
         else
             holder.mNotificationDot.setVisibility(View.INVISIBLE);
 
         holder.mLastTimeStamp.setText(matchesList.get(position).getLastTimeStamp());
-
 
         if(!matchesList.get(position).getProfileImageUrl().equals("default"))
         {
@@ -69,8 +65,4 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesViewHolders> {
     {
         return this.matchesList.size();
     }
-
-
-
-
 }
