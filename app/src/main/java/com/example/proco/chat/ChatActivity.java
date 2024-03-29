@@ -149,6 +149,9 @@ public class ChatActivity extends AppCompatActivity {
         current.updateChildren(lastSeen);
     }
 
+    private void setSupportActionBar(Toolbar toolbar) {
+    }
+
     @Override
     protected void onPause() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users")
@@ -170,39 +173,39 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void seenMessage(final String text) {
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users")
-            .child(matchId);
-    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            if (dataSnapshot.exists()){
-                if (dataSnapshot.child("onChat").exists()){
-                    if (dataSnapshot.child("notificationKey").exists())
-                        notification = dataSnapshot.child("notificationKey").getValue().toString();
-                    else
-                        notification = "";
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users")
+                .child(matchId);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    if (dataSnapshot.child("onChat").exists()){
+                        if (dataSnapshot.child("notificationKey").exists())
+                            notification = dataSnapshot.child("notificationKey").getValue().toString();
+                        else
+                            notification = "";
 
-                    if (dataSnapshot.child("onChat").getValue().toString().equals(currentUserID)){
-                        new SendNotification(text, "New message from: ", currentUserName, notification,
-                                "activityToBeOpened", "MatchesActivity");
-                    }
-                    else    {
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users")
-                                .child(currentUserID).child("connections").child("matches").child(matchId);
-                        Map seenInfo = new HashMap();
-                        seenInfo.put("lastSend", "false");
-                        reference.updateChildren(seenInfo);
+                        if (dataSnapshot.child("onChat").getValue().toString().equals(currentUserID)){
+                            new SendNotification("New message from: ", currentUserName, notification,
+                                    "activityToBeOpened", "MatchesActivity");
+                        }
+                        else    {
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users")
+                                    .child(currentUserID).child("connections").child("matches").child(matchId);
+                            Map seenInfo = new HashMap();
+                            seenInfo.put("lastSend", "false");
+                            reference.updateChildren(seenInfo);
 
+                        }
                     }
                 }
             }
-        }
 
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        }
-    });
+            }
+        });
     }
 
     @Override
@@ -297,7 +300,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.unmatch){
             new AlertDialog.Builder(ChatActivity.this)
                     .setTitle("Unmatch")
@@ -317,7 +320,7 @@ public class ChatActivity extends AppCompatActivity {
                     .show();
         }
         else if (item.getItemId() == R.id.viewProfile) {
-            showProfile(findViewById(R.id.content));
+            showProfile(findViewById(R.id.card_frame));
         }
         return super.onOptionsItemSelected(item);
 
@@ -401,7 +404,7 @@ public class ChatActivity extends AppCompatActivity {
 
         matchDb.updateChildren(lastMessageMap);
         matchDb.updateChildren(lastTimestampMap);
-        }
+    }
 
 
     private void getChatId(){

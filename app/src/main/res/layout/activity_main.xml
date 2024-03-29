@@ -45,6 +45,14 @@
                         app:rotation_degrees="15.5"
                         tools:context=".MyActivity"/>
 
+                    <TextView
+                        android:id="@+id/noCardsBanner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No Cards Found"
+                        android:visibility="gone" />
+
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -75,11 +83,10 @@
                             android:layout_height="70dp"
                             android:background="@drawable/round_button_with_border"
                             android:elevation="7dp"
-                            android:onClick="DisLikeBtn"
+                            android:onClick="LikeBtn"
                             android:padding="10dp"
                             android:src="@drawable/like2"
                             tools:ignore="SpeakableTextPresentCheck" />
-
 
 
                     </LinearLayout>

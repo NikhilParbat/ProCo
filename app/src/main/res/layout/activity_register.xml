@@ -110,7 +110,7 @@
                         android:gravity="bottom">
 
                         <EditText
-                            android:id="@+id/phone_number"
+                            android:id="@+id/phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/edit_text_focused_bg"
@@ -136,8 +136,9 @@
                             android:id="@+id/TextView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:clickable="true"
                             android:text="TextView"
-                            android:clickable="true"/>
+                            tools:ignore="TouchTargetSizeCheck" />
 
                     </LinearLayout>
 
