@@ -76,15 +76,4 @@
         </ScrollView>
     </RelativeLayout>
 
-    <ProgressBar
-        android:id="@+id/pBar"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:indeterminateTint="@color/purple_500"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
